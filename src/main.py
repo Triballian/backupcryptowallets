@@ -15,10 +15,11 @@ remove the original folder
 '''
 import os
 import datetime
-import time
 import shutil
 import getpass
 import subprocess
+
+from time import sleep
 
 class Configinfo:
     sevenzip='C:\\Program Files\\7-Zip\\7z.exe'
@@ -110,19 +111,21 @@ szpass=confirmpass.getpasswd()
 
 if __name__ == '__main__':
     #print flinfo.sourcedir
-    flinfo  = Fileinfo(datetime.datetime.strftime(datetime.datetime.now(), '%y%m%d%I%M%S'))
-
-    foldername = flinfo.get_fldrname()
-    cfginfo = Configinfo()
-    encrypt = Encryptnzip()
-
-    Copyfiles(cfginfo.walletlist, cfginfo.walletdat, flinfo.sourcedir, foldername)
-    print foldername
-    encrypt.runzip(cfginfo.sevenzip, szpass, foldername, cfginfo.backupdir)
+    while True:
+        flinfo  = Fileinfo(datetime.datetime.strftime(datetime.datetime.now(), '%y%m%d%I%M%S'))
+    
+        foldername = flinfo.get_fldrname()
+        cfginfo = Configinfo()
+        encrypt = Encryptnzip()
+    
+        Copyfiles(cfginfo.walletlist, cfginfo.walletdat, flinfo.sourcedir, foldername)
+        print foldername
+        encrypt.runzip(cfginfo.sevenzip, szpass, foldername, cfginfo.backupdir)
     
 #     if not os.path.exists(fldrname.foldername):
 #         os.makedirs(fldrname.foldername)
-#     shutil.copy2('test.txt', fldrname.foldername)       
+#     shutil.copy2('test.txt', fldrname.foldername) 
+    sleep(14400)      
     
         
   
