@@ -50,10 +50,10 @@ class Fileinfo:
     def __init__(self, fldrname):
         self.__fldrname = fldrname
         
-    def get_fldrname(self, fldrname):
-        self.__fldrname = fldrname
+#     def set_fldrname(self, fldrname):
+#         self.__fldrname = fldrname
         
-    def set_fldrname(self):
+    def get_fldrname(self):
         return self.__fldrname
         
     
@@ -102,12 +102,13 @@ szpass=confirmpass.getpasswd()
 if __name__ == '__main__':
     #print flinfo.sourcedir
     flinfo  = Fileinfo(datetime.datetime.strftime(datetime.datetime.now(), '%y%m%d%I%M%S'))
-    foldername = flinfo.get_fldrname
+
+    foldername = flinfo.get_fldrname()
     cfginfo = Configinfo()
     encrypt = Encryptnzip()
     
     
-    print flinfo.foldername
+    print foldername
     Copyfiles(cfginfo.walletlist, cfginfo.walletdat, flinfo.sourcedir, foldername)
     print foldername
     encrypt.runzip(Configinfo.sevenzip, szpass, foldername)
