@@ -125,7 +125,7 @@ if __name__ == '__main__':
 #     if not os.path.exists(fldrname.foldername):
 #         os.makedirs(fldrname.foldername)
 #     shutil.copy2('test.txt', fldrname.foldername) 
-    sleep(14400)      
+        sleep(1440)      
     
         
   
