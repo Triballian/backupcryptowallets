@@ -80,16 +80,20 @@ class Encryptnzip:
         subprocess.call(wincommand)
                             
 
-flinfo  = Fileinfo()
-cfginfo = Configinfo()
+
 confirmpass = Sevenzippassword()
-encrypt = Encryptnzip()
+szpass=confirmpass.getpasswd()
+
 
    
 
 if __name__ == '__main__':
     #print flinfo.sourcedir
-    szpass=confirmpass.getpasswd()
+    flinfo  = Fileinfo()
+    cfginfo = Configinfo()
+    encrypt = Encryptnzip()
+    
+    
     print flinfo.foldername
     Copyfiles(cfginfo.walletlist, cfginfo.walletdat, flinfo.sourcedir, flinfo.foldername)
     print flinfo.foldername
