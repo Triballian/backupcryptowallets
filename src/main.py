@@ -42,10 +42,23 @@ class Configinfo:
             
 
 class Fileinfo:
-    
-    foldername = datetime.datetime.strftime(datetime.datetime.now(), '%y%m%d%I%M%S')
     appdata = os.getenv('APPDATA')
     sourcedir = appdata+"\\"
+    __fldrname = ''
+    
+    
+    def __init__(self, fldrname):
+        self.__fldrname = fldrname
+        
+    def get_fldrname(self, fldrname):
+        self.__fldrname = fldrname
+        
+    def set_fldrname(self):
+        return self.__fldrname
+        
+    
+    foldername = datetime.datetime.strftime(datetime.datetime.now(), '%y%m%d%I%M%S')
+    
     
 class Copyfiles:
     
