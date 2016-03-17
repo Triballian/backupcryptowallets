@@ -22,6 +22,7 @@ import subprocess
 
 class Configinfo:
     sevenzip='C:\\Program Files\\7-Zip\\7z.exe'
+    
     conffile = open('wcw.conf')
     for line in conffile:
         marker = '#'
@@ -44,8 +45,7 @@ class Configinfo:
 class Fileinfo:
     appdata = os.getenv('APPDATA')
     sourcedir = appdata+"\\"
-    __fldrname = ''
-    
+    __fldrname = ''    
     
     def __init__(self, fldrname):
         self.__fldrname = fldrname
@@ -88,9 +88,13 @@ class Sevenzippassword:
         
 class Encryptnzip:
     def runzip(self, szpath, szpass, bkupfolder):
-        wincommand = szpath+' a '+bkupfolder+' '+bkupfolder+' -p'+szpass
-        print wincommand
-        subprocess.call(wincommand)
+        zipcommand = szpath+' a '+bkupfolder+' '+bkupfolder+' -p'+szpass
+        rmpath = bkupfolder
+#        print zipcommand
+        print rmpath
+        subprocess.call(zipcommand)
+        shutil.rmtree(rmpath)
+        
                             
 
 
@@ -112,6 +116,7 @@ if __name__ == '__main__':
     Copyfiles(cfginfo.walletlist, cfginfo.walletdat, flinfo.sourcedir, foldername)
     print foldername
     encrypt.runzip(Configinfo.sevenzip, szpass, foldername)
+    
 #     if not os.path.exists(fldrname.foldername):
 #         os.makedirs(fldrname.foldername)
 #     shutil.copy2('test.txt', fldrname.foldername)       
