@@ -22,6 +22,7 @@ import subprocess
 
 class Configinfo:
     sevenzip='C:\\Program Files\\7-Zip\\7z.exe'
+    backupdir = 'C:\Users\Noe\Google Drive\wallet backup'
     
     conffile = open('wcw.conf')
     for line in conffile:
@@ -87,14 +88,18 @@ class Sevenzippassword:
         return p1   
         
 class Encryptnzip:
-    def runzip(self, szpath, szpass, bkupfolder):
+    def runzip(self, szpath, szpass, bkupfolder, backupdir):
         zipcommand = szpath+' a '+bkupfolder+' '+bkupfolder+' -p'+szpass
         rmpath = bkupfolder
+        bufilename = bkupfolder+'.7z'
+        budir = backupdir
 #        print zipcommand
-        print rmpath
+
         subprocess.call(zipcommand)
         shutil.rmtree(rmpath)
-        
+
+        shutil.move(bufilename, budir)
+ 
                             
 
 
@@ -110,12 +115,10 @@ if __name__ == '__main__':
     foldername = flinfo.get_fldrname()
     cfginfo = Configinfo()
     encrypt = Encryptnzip()
-    
-    
-    print foldername
+
     Copyfiles(cfginfo.walletlist, cfginfo.walletdat, flinfo.sourcedir, foldername)
     print foldername
-    encrypt.runzip(Configinfo.sevenzip, szpass, foldername)
+    encrypt.runzip(cfginfo.sevenzip, szpass, foldername, cfginfo.backupdir)
     
 #     if not os.path.exists(fldrname.foldername):
 #         os.makedirs(fldrname.foldername)
