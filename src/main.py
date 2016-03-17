@@ -88,7 +88,7 @@ class Sevenzippassword:
         
 class Encryptnzip:
     def runzip(self, szpath, szpass, bkupfolder):
-        wincommand = szpath+' a '+bkupfolder+' '+bkupfolder+' -pSECRET'
+        wincommand = szpath+' a '+bkupfolder+' '+bkupfolder+' -p'+szpass
         print wincommand
         subprocess.call(wincommand)
                             
