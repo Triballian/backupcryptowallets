@@ -57,7 +57,7 @@ class Fileinfo:
         return self.__fldrname
         
     
-    foldername = datetime.datetime.strftime(datetime.datetime.now(), '%y%m%d%I%M%S')
+    
     
     
 class Copyfiles:
@@ -97,20 +97,20 @@ class Encryptnzip:
 confirmpass = Sevenzippassword()
 szpass=confirmpass.getpasswd()
 
-
-   
+ 
 
 if __name__ == '__main__':
     #print flinfo.sourcedir
-    flinfo  = Fileinfo()
+    flinfo  = Fileinfo(datetime.datetime.strftime(datetime.datetime.now(), '%y%m%d%I%M%S'))
+    foldername = flinfo.get_fldrname
     cfginfo = Configinfo()
     encrypt = Encryptnzip()
     
     
     print flinfo.foldername
-    Copyfiles(cfginfo.walletlist, cfginfo.walletdat, flinfo.sourcedir, flinfo.foldername)
-    print flinfo.foldername
-    encrypt.runzip(Configinfo.sevenzip, szpass, flinfo.foldername)
+    Copyfiles(cfginfo.walletlist, cfginfo.walletdat, flinfo.sourcedir, foldername)
+    print foldername
+    encrypt.runzip(Configinfo.sevenzip, szpass, foldername)
 #     if not os.path.exists(fldrname.foldername):
 #         os.makedirs(fldrname.foldername)
 #     shutil.copy2('test.txt', fldrname.foldername)       
