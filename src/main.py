@@ -21,9 +21,7 @@ import subprocess
 
 from time import sleep
 
-class Configinfo:
-    sevenzip='C:\\Program Files\\7-Zip\\7z.exe'
-    backupdir = 'C:\Users\Noe\Google Drive\wallet backup'
+class Configinfo: 
     
     conffile = open('wcw.conf')
     for line in conffile:
@@ -34,14 +32,18 @@ class Configinfo:
         if not line:
             continue
         line = line.rstrip()
-        line = line.replace(' ','')
+        line = line.replace(' = ','=')
         configdata = line.split('=')
         
         if configdata[0].lower() == 'wallets':        
             walletlist = configdata[1].split(',')
-        
-        if configdata[0].lower() == 'path':
-            cfgpath = configdata[1].split(',')
+            
+        if configdata[0].lower() == '7zpath':
+            szpath = configdata[1]
+            
+        if configdata[0].lower() == 'budir':
+            backupdir = configdata[1]
+            
             
 
 class Fileinfo:
@@ -94,7 +96,7 @@ class Encryptnzip:
         rmpath = bkupfolder
         bufilename = bkupfolder+'.7z'
         budir = backupdir
-#        print zipcommand
+
 
         subprocess.call(zipcommand)
         shutil.rmtree(rmpath)
@@ -110,7 +112,7 @@ szpass=confirmpass.getpasswd()
  
 
 if __name__ == '__main__':
-    #print flinfo.sourcedir
+    
     while True:
         flinfo  = Fileinfo(datetime.datetime.strftime(datetime.datetime.now(), '%y%m%d%I%M%S'))
     
@@ -119,8 +121,8 @@ if __name__ == '__main__':
         encrypt = Encryptnzip()
     
         Copyfiles(cfginfo.walletlist, cfginfo.walletdat, flinfo.sourcedir, foldername)
-        print foldername
-        encrypt.runzip(cfginfo.sevenzip, szpass, foldername, cfginfo.backupdir)
+
+        encrypt.runzip(cfginfo.szpath, szpass, foldername, cfginfo.backupdir)
     
 #     if not os.path.exists(fldrname.foldername):
 #         os.makedirs(fldrname.foldername)
