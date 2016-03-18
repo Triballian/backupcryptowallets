@@ -13,11 +13,13 @@ encrypt encrypt and compress the folder into a file.
 copy the file into a backup drive
 remove the original folder
 '''
-import os
-import datetime
-import shutil
-import getpass
-import subprocess
+from os import getenv, path, makedirs 
+
+from datetime import datetime 
+
+from getpass import getpass
+from subprocess import call
+from shutil import copy2, rmtree, move 
 
 from time import sleep
 
@@ -46,38 +48,29 @@ class Configinfo:
             
         if configdata[0].lower() == 'time':
             itime = 60*60*float(configdata[1])
-            print itime   
-            
-            
-            
 
 class Fileinfo:
-    appdata = os.getenv('APPDATA')
+    appdata = getenv('APPDATA')
     sourcedir = appdata+"\\"
     __fldrname = ''    
     
     def __init__(self, fldrname):
         self.__fldrname = fldrname
         
-#     def set_fldrname(self, fldrname):
-#         self.__fldrname = fldrname
-        
     def get_fldrname(self):
-        return self.__fldrname
-    
+        return self.__fldrname    
     
 class Copyfiles:    
     
     def __init__(self, wallets, walletdat, srcfolder, dstfolder):
         
-        if not os.path.exists(dstfolder):
-            os.makedirs(dstfolder)
+        if not path.exists(dstfolder):
+            makedirs(dstfolder)
         for wallet in wallets:
             
             source=srcfolder+wallet+'\\'+walletdat
             dstfile=dstfolder+'\\'+wallet+'.dat'
-            shutil.copy2(source, dstfile)
-            
+            copy2(source, dstfile)            
 
 class Sevenzippassword:
     def getpasswd(self):
@@ -85,11 +78,11 @@ class Sevenzippassword:
         while confirmation == False:
             p1 = ''
             
-            p1 = getpass.getpass('Your Seven Zip file password:')
+            p1 = getpass('Your Seven Zip file password:')
             while not p1:                
                 print "Password cannot be blank"
-                p1 = getpass.getpass('Your Seven Zip file password:')
-            p2 = getpass.getpass('Please confirm your password:')
+                p1 = getpass('Your Seven Zip file password:')
+            p2 = getpass('Please confirm your password:')
             
                 
                 
@@ -107,10 +100,10 @@ class Encryptnzip:
         budir = backupdir
 
 
-        subprocess.call(zipcommand)
-        shutil.rmtree(rmpath)
+        call(zipcommand)
+        rmtree(rmpath)
 
-        shutil.move(bufilename, budir)
+        move(bufilename, budir)
  
                             
 
@@ -123,8 +116,8 @@ szpass=confirmpass.getpasswd()
 if __name__ == '__main__':
     
     while True:
-        flinfo  = Fileinfo(datetime.datetime.strftime(datetime.datetime.now(), '%y%m%d%I'))
-#         flinfo  = Fileinfo(datetime.datetime.strftime(datetime.datetime.now(), '%y%m%d%I%M%S'))
+        flinfo  = Fileinfo(datetime.strftime(datetime.now(), '%y%m%d%I%M'))
+#         flinfo  = Fileinfo(datetime.strftime(datetime.now(), '%y%m%d%I%M%S'))
     
         foldername = flinfo.get_fldrname()
         cfginfo = Configinfo()
@@ -134,8 +127,8 @@ if __name__ == '__main__':
 
         encrypt.runzip(cfginfo.szpath, szpass, foldername, cfginfo.backupdir)
     
-#     if not os.path.exists(fldrname.foldername):
-#         os.makedirs(fldrname.foldername)
+#     if not getenv.exists(fldrname.foldername):
+#         makedirs(fldrname.foldername)
 #     shutil.copy2('test.txt', fldrname.foldername) 
         sleep(cfginfo.itime)      
     
