@@ -118,7 +118,7 @@ szpass=confirmpass.getpasswd()
 if __name__ == '__main__':
     
     while True:
-        flinfo  = Fileinfo(datetime.datetime.strftime(datetime.datetime.now(), '%y%m%d%I%M%S'))
+        flinfo  = Fileinfo(datetime.datetime.strftime(datetime.datetime.now(), '%y%m%d%I'))
     
         foldername = flinfo.get_fldrname()
         cfginfo = Configinfo()
