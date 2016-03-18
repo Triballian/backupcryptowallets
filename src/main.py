@@ -44,6 +44,11 @@ class Configinfo:
         if configdata[0].lower() == 'budir':
             backupdir = configdata[1]
             
+        if configdata[0].lower() == 'time':
+            itime = 60*60*float(configdata[1])
+            print itime   
+            
+            
             
 
 class Fileinfo:
@@ -119,6 +124,7 @@ if __name__ == '__main__':
     
     while True:
         flinfo  = Fileinfo(datetime.datetime.strftime(datetime.datetime.now(), '%y%m%d%I'))
+#         flinfo  = Fileinfo(datetime.datetime.strftime(datetime.datetime.now(), '%y%m%d%I%M%S'))
     
         foldername = flinfo.get_fldrname()
         cfginfo = Configinfo()
@@ -131,7 +137,7 @@ if __name__ == '__main__':
 #     if not os.path.exists(fldrname.foldername):
 #         os.makedirs(fldrname.foldername)
 #     shutil.copy2('test.txt', fldrname.foldername) 
-        sleep(1440)      
+        sleep(cfginfo.itime)      
     
         
   
