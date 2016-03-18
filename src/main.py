@@ -59,13 +59,9 @@ class Fileinfo:
         
     def get_fldrname(self):
         return self.__fldrname
-        
     
     
-    
-    
-class Copyfiles:
-    
+class Copyfiles:    
     
     def __init__(self, wallets, walletdat, srcfolder, dstfolder):
         
@@ -82,8 +78,16 @@ class Sevenzippassword:
     def getpasswd(self):
         confirmation = False
         while confirmation == False:
+            p1 = ''
+            
             p1 = getpass.getpass('Your Seven Zip file password:')
+            while not p1:                
+                print "Password cannot be blank"
+                p1 = getpass.getpass('Your Seven Zip file password:')
             p2 = getpass.getpass('Please confirm your password:')
+            
+                
+                
             if p1 == p2:
                 confirmation = True
             else:
