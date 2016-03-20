@@ -99,18 +99,13 @@ class Encryptnzip:
         bufilename = bkupfolder+'.7z'
         budir = backupdir
 
-
         call(zipcommand)
         rmtree(rmpath)
 
         move(bufilename, budir)
- 
-                            
-
 
 confirmpass = Sevenzippassword()
 szpass=confirmpass.getpasswd()
-
  
 
 if __name__ == '__main__':
@@ -130,8 +125,6 @@ if __name__ == '__main__':
 #     if not getenv.exists(fldrname.foldername):
 #         makedirs(fldrname.foldername)
 #     shutil.copy2('test.txt', fldrname.foldername) 
-        sleep(cfginfo.itime)      
-    
-        
+        sleep(cfginfo.itime)       
   
     pass
