@@ -30,6 +30,8 @@ class Configinfo:
         marker = '#'
         
         walletdat='wallet.dat'
+        zipext = '.7z'
+        
         Line = line.partition(marker)[0]
         if not line:
             continue
@@ -47,7 +49,8 @@ class Configinfo:
             backupdir = configdata[1].lstrip()
             
         if configdata[0].lower() == 'time':
-            itime = 60*60*float(configdata[1].lstrip())
+#             itime = 60*60*float(configdata[1].lstrip())
+            itime = 10
 
 class Fileinfo:
     appdata = getenv('APPDATA')
@@ -93,10 +96,10 @@ class Sevenzippassword:
         return p1   
         
 class Encryptnzip:
-    def runzip(self, szpath, szpass, bkupfolder, backupdir):
+    def runzip(self, szpath, szpass, bkupfolder, backupdir, zipextion):
         zipcommand = szpath+' a '+bkupfolder+' '+bkupfolder+' -p'+szpass
         rmpath = bkupfolder
-        bufilename = bkupfolder+'.7z'
+        bufilename = bkupfolder+zipextion
         budir = backupdir
 
         call(zipcommand)
@@ -115,12 +118,18 @@ if __name__ == '__main__':
 #         flinfo  = Fileinfo(datetime.strftime(datetime.now(), '%y%m%d%I%M%S'))
     
         foldername = flinfo.get_fldrname()
+        
         cfginfo = Configinfo()
+        
+        if path.exists(str(foldername+cfginfo.zipext)):
+            sleep(cfginfo.itime)
+            continue
+        
         encrypt = Encryptnzip()
     
         Copyfiles(cfginfo.walletlist, cfginfo.walletdat, flinfo.sourcedir, foldername)
 
-        encrypt.runzip(cfginfo.szpath, szpass, foldername, cfginfo.backupdir)
+        encrypt.runzip(cfginfo.szpath, szpass, foldername, cfginfo.backupdir, cfginfo.zipext)
     
 #     if not getenv.exists(fldrname.foldername):
 #         makedirs(fldrname.foldername)
