@@ -38,16 +38,16 @@ class Configinfo:
         configdata = line.split('=')
         
         if configdata[0].lower() == 'wallets':        
-            walletlist = configdata[1].split(',')
+            walletlist = configdata[1].lstrip().split(',')
             
         if configdata[0].lower() == '7zpath':
-            szpath = configdata[1]
+            szpath = configdata[1].lstrip()
             
         if configdata[0].lower() == 'budir':
-            backupdir = configdata[1]
+            backupdir = configdata[1].lstrip()
             
         if configdata[0].lower() == 'time':
-            itime = 60*60*float(configdata[1])
+            itime = 60*60*float(configdata[1].lstrip())
 
 class Fileinfo:
     appdata = getenv('APPDATA')
