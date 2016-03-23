@@ -49,8 +49,8 @@ class Configinfo:
             backupdir = configdata[1].lstrip()
             
         if configdata[0].lower() == 'time':
-#             itime = 60*60*float(configdata[1].lstrip())
-            itime = 10
+            itime = 60*60*float(configdata[1].lstrip())
+            
 
 class Fileinfo:
     appdata = getenv('APPDATA')
@@ -121,7 +121,7 @@ if __name__ == '__main__':
         
         cfginfo = Configinfo()
         
-        if path.exists(str(foldername+cfginfo.zipext)):
+        if path.exists(str(cfginfo.backupdir+'\\'+foldername+cfginfo.zipext)):
             sleep(cfginfo.itime)
             continue
         
